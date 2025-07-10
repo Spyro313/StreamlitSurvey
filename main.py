@@ -77,7 +77,8 @@ if not st.session_state.submitted:
             df_all.to_csv(CSV_FILE, index=False)
 
             st.session_state.submitted = True
-            st.rerun()
+            st.experimental_rerun()
+            st.stop()
 
 # ----- Results UI -----
 if st.session_state.submitted:
