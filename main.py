@@ -78,7 +78,6 @@ if not st.session_state.submitted:
 
             st.session_state.submitted = True
             st.rerun()
-            st.stop()
 
 # ----- Results UI -----
 if st.session_state.submitted:
