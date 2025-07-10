@@ -11,7 +11,6 @@ st.set_page_config(page_title="Team Vote", layout="centered")
 
 # ----- Auto-refresh for results screen -----
 if st.session_state.get("submitted", False):
-    st.experimental_rerun()  # Optional, forces immediate update after vote
     st.experimental_auto_refresh(interval=10_000, key="refresh")  # Every 10 sec
 
 # ----- Title -----
@@ -103,12 +102,12 @@ if st.session_state.submitted:
         st.info("No votes submitted yet.")
 
 # ----- Admin Reset Button -----
-with st.expander("⚙️ Admin Controls"):
-    if st.button("🗑️ Reset All Votes"):
-        if os.path.exists(CSV_FILE):
-            os.remove(CSV_FILE)
-            st.success("✅ All votes have been reset.")
-            st.session_state.submitted = False
-            st.rerun()
-        else:
-            st.info("ℹ️ No vote file found to reset.")
+#with st.expander("⚙️ Admin Controls"):
+#    if st.button("🗑️ Reset All Votes"):
+#        if os.path.exists(CSV_FILE):
+#            os.remove(CSV_FILE)
+#            st.success("✅ All votes have been reset.")
+#            st.session_state.submitted = False
+#            st.rerun()
+#        else:
+#            st.info("ℹ️ No vote file found to reset.")
