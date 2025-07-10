@@ -35,7 +35,7 @@ def handle_slider_change(index):
         st.session_state[key] = max_allowed
 
 # Title
-st.title("Distribute 10 Points Across 4 Projects")
+st.title("Distribute 10 Points Across 7 Projects")
 
 # Sliders
 for i in range(NUM_SLIDERS):
