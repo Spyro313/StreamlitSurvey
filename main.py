@@ -11,7 +11,7 @@ st.set_page_config(page_title="Team Vote", layout="centered")
 
 # ----- Auto-refresh for results screen -----
 if st.session_state.get("submitted", False):
-    st.experimental_auto_refresh(interval=10_000, key="refresh")  # Every 10 sec
+    st.auto_refresh(interval=10_000, key="refresh")  # Every 10 sec
 
 # ----- Title -----
 st.title("🗳️ Allocate 10 Points Across 4 Projects")
