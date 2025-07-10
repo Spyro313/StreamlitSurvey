@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import os
-from streamlit_autorefresh import st_autorefresh
+import time  # ✅ for sleep
 
 # ----- Config -----
 POINTS_LIMIT = 10
@@ -9,10 +9,6 @@ NUM_SLIDERS = 4
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Team Vote", layout="centered")
-
-# ----- Auto-refresh for results screen -----
-if st.session_state.get("submitted", False):
-    st_autorefresh(interval=10_000, key="refresh")  # Every 10 sec
 
 # ----- Title -----
 st.title("🗳️ Allocate 10 Points Across 4 Projects")
@@ -49,7 +45,6 @@ def handle_slider_change(index):
 
 # ----- Voting UI -----
 if not st.session_state.submitted:
-    # Sliders
     for i in range(NUM_SLIDERS):
         st.slider(
             f"Project {i + 1}",
@@ -60,11 +55,9 @@ if not st.session_state.submitted:
             args=(i,)
         )
 
-    # Total
     total = sum(st.session_state[f"slider_{i}"] for i in range(NUM_SLIDERS))
     st.markdown(f"**Total allocated:** {total} / {POINTS_LIMIT}")
 
-    # Submit button
     if st.button("✅ Submit and Show Results"):
         if total != POINTS_LIMIT:
             st.error(f"Please allocate exactly {POINTS_LIMIT} points before submitting.")
@@ -88,7 +81,7 @@ if not st.session_state.submitted:
 
 # ----- Results UI -----
 if st.session_state.submitted:
-    st.success("✅ Your vote has been submitted. Chart updates every 10 seconds.")
+    st.success("✅ Your vote has been submitted. Chart auto-updates every 10s.")
 
     if os.path.exists(CSV_FILE):
         df_results = pd.read_csv(CSV_FILE)
@@ -102,13 +95,6 @@ if st.session_state.submitted:
     else:
         st.info("No votes submitted yet.")
 
-# ----- Admin Reset Button -----
-#with st.expander("⚙️ Admin Controls"):
-#    if st.button("🗑️ Reset All Votes"):
-#        if os.path.exists(CSV_FILE):
-#            os.remove(CSV_FILE)
-#            st.success("✅ All votes have been reset.")
-#            st.session_state.submitted = False
-#            st.rerun()
-#        else:
-#            st.info("ℹ️ No vote file found to reset.")
+    # ✅ Manual refresh every 10 seconds
+    time.sleep(10)
+    st.rerun()
