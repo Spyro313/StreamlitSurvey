@@ -81,7 +81,7 @@ if not st.session_state.submitted:
 
 # ----- Results UI -----
 if st.session_state.submitted:
-    st.success("✅ Your vote has been submitted. Chart auto-updates every 10s.")
+    st.success("✅ Your vote has been submitted.")
 
     if os.path.exists(CSV_FILE):
         df_results = pd.read_csv(CSV_FILE)
@@ -94,6 +94,9 @@ if st.session_state.submitted:
             st.dataframe(df_results)
     else:
         st.info("No votes submitted yet.")
+
+    if st.button("Reload data"):
+        st.rerun()
 
     # ✅ Manual refresh every 10 seconds
     #time.sleep(10)
