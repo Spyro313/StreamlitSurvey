@@ -96,8 +96,8 @@ if st.session_state.submitted:
         st.info("No votes submitted yet.")
 
     # ✅ Manual refresh every 10 seconds
-    time.sleep(10)
-    st.rerun()
+    #time.sleep(10)
+    #st.rerun()
 
 # ----- Admin Reset Button -----
 #with st.expander("⚙️ Admin Controls"):
