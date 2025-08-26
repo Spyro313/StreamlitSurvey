@@ -5,13 +5,13 @@ import time  # ✅ for sleep
 
 # ----- Config -----
 POINTS_LIMIT = 10
-NUM_SLIDERS = 4
+NUM_SLIDERS = 7
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Team Vote", layout="centered")
 
 # ----- Title -----
-st.title("🗳️ Allocate 10 Points Across 4 Projects")
+st.title("🗳️ Allocate 10 Points Across 7 Projects")
 
 # ----- Initialize session state -----
 if "submitted" not in st.session_state:
@@ -100,12 +100,12 @@ if st.session_state.submitted:
     st.rerun()
 
 # ----- Admin Reset Button -----
-#with st.expander("⚙️ Admin Controls"):
-#    if st.button("🗑️ Reset All Votes"):
-#        if os.path.exists(CSV_FILE):
-#            os.remove(CSV_FILE)
-#            st.success("✅ All votes have been reset.")
-#            st.session_state.submitted = False
-#            st.rerun()
-#        else:
-#            st.info("ℹ️ No vote file found to reset.")
+with st.expander("⚙️ Admin Controls"):
+    if st.button("🗑️ Reset All Votes"):
+        if os.path.exists(CSV_FILE):
+            os.remove(CSV_FILE)
+            st.success("✅ All votes have been reset.")
+            st.session_state.submitted = False
+            st.rerun()
+        else:
+            st.info("ℹ️ No vote file found to reset.")
