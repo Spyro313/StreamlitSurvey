@@ -6,6 +6,7 @@ import time  # ✅ for sleep
 # ----- Config -----
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
+PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Team Vote", layout="centered")
@@ -47,7 +48,7 @@ def handle_slider_change(index):
 if not st.session_state.submitted:
     for i in range(NUM_SLIDERS):
         st.slider(
-            f"Project {i + 1}",
+            PROJECT_NAMES[i],
             min_value=0,
             max_value=10,
             key=f"slider_{i}",
