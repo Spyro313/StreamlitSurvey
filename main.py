@@ -9,7 +9,7 @@ NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
 CSV_FILE = "votes.csv"
 
-st.set_page_config(page_title="Team Vote", layout="centered")
+st.set_page_config(page_title="Make a Change Vote", layout="centered")
 
 # ----- Title -----
 st.title("🗳️ Allocate 10 Points Across 7 Projects")
