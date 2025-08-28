@@ -7,7 +7,7 @@ import time  # ✅ for sleep
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
-LOGINS = {123: False, 345: False, 567: False, 789: False}
+LOGINS = {"123": False, "345": False, "567": False, "789": False}
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
