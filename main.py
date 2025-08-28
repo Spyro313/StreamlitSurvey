@@ -52,7 +52,6 @@ if st.session_state.login == "":
     if st.button("Log in"):
         if user_login in LOGINS.keys():
             st.session_state.login = user_login
-            LOGINS[user_login] = True
             st.rerun()
         else:
             st.error("Incorrect login")
@@ -91,6 +90,7 @@ elif not LOGINS[st.session_state.login]:
             df_all.to_csv(CSV_FILE, index=False)
 
             st.session_state.submitted = True
+            LOGINS[st.session_state.login] = True
             st.rerun()
 
 # ----- Results UI -----
