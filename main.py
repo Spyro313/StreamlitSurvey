@@ -7,7 +7,7 @@ import time  # ✅ for sleep
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
-LOGINS = [123, 345, 567, 789]
+LOGINS = {123: False, 345: False, 567: False, 789: False}
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
@@ -50,11 +50,14 @@ def handle_slider_change(index):
 if st.session_state.login == "":
     user_login = st.text_input("Enter your code")
     if st.button("Log in"):
-        st.session_state.login = user_login
-        st.rerun()
+        if user_login in LOGINS.keys():
+            st.session_state.login = user_login
+            st.rerun()
+        else:
+            st.error("Incorrect login")
 
 # ----- Voting UI -----
-elif not st.session_state.submitted:
+elif not LOGINS[st.session_state.login]:
     for i in range(NUM_SLIDERS):
         st.slider(
             PROJECT_NAMES[i],
