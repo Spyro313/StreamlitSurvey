@@ -7,6 +7,7 @@ import time  # ✅ for sleep
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
+LOGINS = [123, 345, 567, 789]
 CSV_FILE = "votes.csv"
 
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
@@ -17,6 +18,8 @@ st.title("🗳️ Allocate 10 Points Across 7 Projects")
 # ----- Initialize session state -----
 if "submitted" not in st.session_state:
     st.session_state.submitted = False
+if "login" not in st.session_state:
+    st.session_state.login = ""
 
 for i in range(NUM_SLIDERS):
     slider_key = f"slider_{i}"
@@ -43,9 +46,15 @@ def handle_slider_change(index):
             f"Reducing Project {index + 1} to {max_allowed}."
         )
         st.session_state[key] = max_allowed
+# ----- Login UI -----
+if st.session_state.login == "":
+    user_login = st.text_input("Enter your code")
+    if st.button("Log in"):
+        st.session_state.login = user_login
+        st.rerun()
 
 # ----- Voting UI -----
-if not st.session_state.submitted:
+elif not st.session_state.submitted:
     for i in range(NUM_SLIDERS):
         st.slider(
             PROJECT_NAMES[i],
@@ -81,7 +90,7 @@ if not st.session_state.submitted:
             st.rerun()
 
 # ----- Results UI -----
-if st.session_state.submitted:
+else:
     st.success("✅ Your vote has been submitted.")
 
     if os.path.exists(CSV_FILE):
