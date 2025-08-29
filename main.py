@@ -18,8 +18,6 @@ st.set_page_config(page_title="Make a Change Vote", layout="centered")
 st.title("🗳️ Allocate 10 Points Across 7 Projects")
 
 # ----- Initialize session state -----
-if "submitted" not in st.session_state:
-    st.session_state.submitted = False
 if "login" not in st.session_state:
     st.session_state.login = ""
 
@@ -79,7 +77,7 @@ elif not LOGINS[st.session_state.login]:
         else:
             vote_data = {
                 f"Project {i+1}": st.session_state[f"slider_{i}"]
-                for i in range(NUM_SLIDERS)
+                for i in range(NUM_SLIDERS), "login": st.session_state.login
             }
             df_new = pd.DataFrame([vote_data])
 
@@ -90,9 +88,7 @@ elif not LOGINS[st.session_state.login]:
                 df_all = df_new
 
             df_all.to_csv(CSV_FILE, index=False)
-
-            st.session_state.submitted = True
-            LOGINS[st.session_state.login] = True
+            
             st.rerun()
 
 # ----- Results UI -----
