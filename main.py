@@ -56,7 +56,7 @@ def handle_slider_change(index):
 if st.session_state.login == "":
     user_login = st.text_input("Enter your code")
     if st.button("Log in"):
-        if user_login in LOGINS.keys():
+        if user_login in logins.keys():
             st.session_state.login = user_login
             st.rerun()
         else:
