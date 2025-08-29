@@ -57,7 +57,7 @@ if st.session_state.login == "":
             st.error("Incorrect login")
 
 # ----- Voting UI -----
-elif not LOGINS[st.session_state.login]:
+elif LOGINS[st.session_state.login] == False:
     for i in range(NUM_SLIDERS):
         st.slider(
             PROJECT_NAMES[i],
@@ -77,7 +77,7 @@ elif not LOGINS[st.session_state.login]:
         else:
             vote_data = {
                 f"Project {i+1}": st.session_state[f"slider_{i}"]
-                for i in range(NUM_SLIDERS), "login": st.session_state.login
+                for i in range(NUM_SLIDERS)
             }
             df_new = pd.DataFrame([vote_data])
 
@@ -88,7 +88,8 @@ elif not LOGINS[st.session_state.login]:
                 df_all = df_new
 
             df_all.to_csv(CSV_FILE, index=False)
-            
+
+            LOGINS[st.session_state.login] = True
             st.rerun()
 
 # ----- Results UI -----
