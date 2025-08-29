@@ -10,6 +10,8 @@ PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
 LOGINS = {"123": False, "345": False, "567": False, "789": False}
 CSV_FILE = "votes.csv"
 
+print(LOGINS)
+
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
 
 # ----- Title -----
