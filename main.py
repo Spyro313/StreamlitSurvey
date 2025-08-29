@@ -8,7 +8,7 @@ import json
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
-logins = {"123": False, "345": False, "567": False, "789": False}
+logins = {"941": ("Yan Xiao", False), "890": ("Ewa Chrzanowska", False), "307": ("Marzena Misiec", False), "241": ("Małgorzata Pawłowska", False), "808": ("Rafał Masłowski", False), "153": ("Paweł Woszczyk", False), "594": ("Stanisław Sromek", False), "638": ("Adam Wojtera", False), "168": ("Wang Fenghua", False), "925": ("Yang Yoyui", False), "376": ("Li Yang", False)}
 CSV_FILE = "votes.csv"
 JSON_FILE = "logins.json"
 
@@ -64,7 +64,7 @@ if st.session_state.login == "":
             st.error("Incorrect login")
 
 # ----- Voting UI -----
-elif logins[st.session_state.login] == False:
+elif logins[st.session_state.login][1] == False:
     for i in range(NUM_SLIDERS):
         st.slider(
             PROJECT_NAMES[i],
@@ -96,7 +96,7 @@ elif logins[st.session_state.login] == False:
 
             df_all.to_csv(CSV_FILE, index=False)
 
-            logins[st.session_state.login] = True
+            logins[st.session_state.login][1] = True
             with open(JSON_FILE, 'w') as file:
                 file.write(json.dumps(logins))
             st.rerun()
