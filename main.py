@@ -2,15 +2,18 @@ import streamlit as st
 import pandas as pd
 import os
 import time  # ✅ for sleep
+import json
 
 # ----- Config -----
 POINTS_LIMIT = 10
 NUM_SLIDERS = 7
 PROJECT_NAMES = ["Name 1", "Name 2", "abc", "def", "123", "qwe", "projekt"]
-LOGINS = {"123": False, "345": False, "567": False, "789": False}
+logins = {"123": False, "345": False, "567": False, "789": False}
 CSV_FILE = "votes.csv"
+JSON_FILE = "logins.json"
 
-print(LOGINS)
+with open(JSON_FILE, 'r') as file:
+    logins = json.load(file)
 
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
 
@@ -57,7 +60,7 @@ if st.session_state.login == "":
             st.error("Incorrect login")
 
 # ----- Voting UI -----
-elif LOGINS[st.session_state.login] == False:
+elif logins[st.session_state.login] == False:
     for i in range(NUM_SLIDERS):
         st.slider(
             PROJECT_NAMES[i],
@@ -89,7 +92,9 @@ elif LOGINS[st.session_state.login] == False:
 
             df_all.to_csv(CSV_FILE, index=False)
 
-            LOGINS[st.session_state.login] = True
+            logins[st.session_state.login] = True
+            with open(JSON_FILE, 'w') as file:
+                file.write(json.dumps(logins))
             st.rerun()
 
 # ----- Results UI -----
