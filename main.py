@@ -12,8 +12,6 @@ logins = {"123": False, "345": False, "567": False, "789": False}
 CSV_FILE = "votes.csv"
 JSON_FILE = "logins.json"
 
-with open(JSON_FILE, 'r') as file:
-    logins = json.load(file)
 
 st.set_page_config(page_title="Make a Change Vote", layout="centered")
 
@@ -23,11 +21,16 @@ st.title("🗳️ Allocate 10 Points Across 7 Projects")
 # ----- Initialize session state -----
 if "login" not in st.session_state:
     st.session_state.login = ""
+    with open(JSON_FILE, 'w') as file:
+        file.write(json.dumps(logins))
 
 for i in range(NUM_SLIDERS):
     slider_key = f"slider_{i}"
     if slider_key not in st.session_state:
         st.session_state[slider_key] = 0
+
+with open(JSON_FILE, 'r') as file:
+    logins = json.load(file)
 
 # ----- Slider change constraint -----
 def total_excluding(index):
