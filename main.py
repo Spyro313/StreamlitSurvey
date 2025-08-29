@@ -21,8 +21,9 @@ st.title("🗳️ Allocate 10 Points Across 7 Projects")
 # ----- Initialize session state -----
 if "login" not in st.session_state:
     st.session_state.login = ""
-    with open(JSON_FILE, 'w') as file:
-        file.write(json.dumps(logins))
+    if not os.path.exists(JSON_FILE):
+        with open(JSON_FILE, 'w') as file:
+            file.write(json.dumps(logins))
 
 for i in range(NUM_SLIDERS):
     slider_key = f"slider_{i}"
